@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
-import { investigateIncident } from "@/agent/recovery-agent";
+import { runIncidentInvestigation } from "@/state/investigation-service";
 
 export async function GET() {
   try {
-    const result = await investigateIncident("incident_1048");
+    const result = await runIncidentInvestigation(
+      "incident_1048"
+    );
 
     return NextResponse.json({
       success: true,
@@ -18,7 +20,7 @@ export async function GET() {
         error:
           error instanceof Error
             ? error.message
-            : "Unknown agent error",
+            : "Unknown investigation error",
       },
       { status: 500 }
     );
